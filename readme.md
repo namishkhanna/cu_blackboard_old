@@ -1,0 +1,17 @@
+# CU Blackboard Auto-Login
+
+## Follow these Steps to run Script:
+
+1. Download the Project
+2. Extract Zip Files
+3. Open the Extracted Folder
+4. If you are using this Project for First time then run "first_time_run.bat"
+5. Else run "run.bat"
+6. Enter your Username and Password in Command Prompt
+7. After that it will extract Time Table from CUIMS
+8. After this enter in Command Prompt from which Lecture you want to join Class and Hit Enter 
+9. After this you will see that Your Blackboard is Opened
+10. Now, It will automatically join the classes from your entered Lecture
+
+
+### Note: Pyhton should be installed on your System and This is only for Educational Purpose.
