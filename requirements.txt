@@ -1,0 +1,7 @@
+beautifulsoup4
+coloredlogs==14.0
+lxml
+path==15.1.0
+path.py==12.5.0
+requests
+selenium
