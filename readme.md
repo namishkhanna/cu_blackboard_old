@@ -6,7 +6,7 @@ It will automatically joins each class of current day and makes count of the tot
 1. Download the Project
 2. Extract Zip Files
 3. Open Extracted Folder
-4. Open "Window exe" Folder
+4. Open "Windows exe" Folder
 5. Run "cu_blackboard.exe"
 6. Enter your Username and Password
 7. After that it will extract Time Table from CUIMS
