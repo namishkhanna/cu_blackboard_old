@@ -1,4 +1,6 @@
-# CU Blackboard Auto-Login
+# CU Blackboard:-
+It will automatically joins each class of current day and makes count of the total time you are in Lecture. If current class total time is less than 50 minutes than it will join the next class in new tab without closing the current class tab otherwise it will join the next class in new tab and close the current class tab.
+
 
 ## Follow these Steps to run Script:
 
