@@ -335,80 +335,78 @@ if __name__ == '__main__':
             # checking if class time is less than next class time
             IsTimeToJoinClass = compareTime(classJoinTime)
 
-            # check if time for class is gone or not
-            if not IsTimeToJoinClass:
-                print("Time for " + classJoinName + " Lecture Gone !!!")
+            # checking if class joining link is available or not
+            IsLinkAvailable = checkLinkAvailability(driver, classJoinName, nextClassJoinTime, classJoinTime)
+
+            # check if class time is less than next class time and class joining link is available
+            if IsTimeToJoinClass and IsLinkAvailable[0]:
                 classtojoin = False
-            else:
-                # checking if class joining link is available or not
-                IsLinkAvailable = checkLinkAvailability(driver, classJoinName, nextClassJoinTime, classJoinTime)
 
-                # check if class time is less than next class time and class joining link is available
-                if IsTimeToJoinClass and IsLinkAvailable[0]:
-                    classtojoin = False
+                while(is_connected_link):
+                    if(is_connected()):
+                        WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, f"//span[text()='{IsLinkAvailable[1]}']"))).click()
+                        is_connected_link = False
+                    else:
+                        time.sleep(2)
+                        driver.refresh()
 
-                    while(is_connected_link):
+                driver.switch_to.window(driver.window_handles[1])
+
+                # check if audio and video persmissions are given or not
+                if(not bb_permission_flag):
+                    bb_permission_flag = True
+
+                    while(is_connected_driver):
                         if(is_connected()):
-                            WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, f"//span[text()='{IsLinkAvailable[1]}']"))).click()
-                            is_connected_link = False
+                            try:
+                                WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Audio is working.']"))).click()
+                            except:
+                                print("Exception occured in Audio Testing.")
+                                WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Skip audio test']"))).click()
+
+                            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Video is working.']"))).click()
+                            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Later']"))).click()
+                            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Close']"))).click()
+                            is_connected_driver = False
                         else:
                             time.sleep(2)
                             driver.refresh()
 
-                    driver.switch_to.window(driver.window_handles[1])
+                # waiting in class till next class and minimum 50 minutes
+                wait_in_class = True
+                while(wait_in_class):
+                    currentTime = datetime.now()
+                    
+                    # check if current time is greater than next class time and minimum time in class is greater than 50 minutes
+                    if(currentTime.time()>=nextClassJoinTime.time()):
+                        if(total_class_time<=3000):
+                            wait_in_class = False
+                        else:
+                            wait_in_class = False
+                            driver.close()
+                    else:
+                        is_connected_again = True
 
-                    # check if audio and video persmissions are given or not
-                    if(not bb_permission_flag):
-                        bb_permission_flag = True
-
-                        while(is_connected_driver):
+                        while(is_connected_again):
                             if(is_connected()):
-                                try:
-                                    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Audio is working.']"))).click()
-                                except:
-                                    print("Exception occured in Audio Testing.")
-                                    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Skip audio test']"))).click()
-
-                                WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Video is working.']"))).click()
-                                WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Later']"))).click()
-                                WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Close']"))).click()
-                                is_connected_driver = False
+                                is_connected_again = False
+                                time.sleep(60)
+                                total_class_time = total_class_time + 60
                             else:
                                 time.sleep(2)
                                 driver.refresh()
 
-                    # waiting in class till next class and minimum 50 minutes
-                    wait_in_class = True
-                    while(wait_in_class):
-                        currentTime = datetime.now()
-                        
-                        # check if current time is greater than next class time and minimum time in class is greater than 50 minutes
-                        if(currentTime.time()>=nextClassJoinTime.time()):
-                            if(total_class_time<=3000):
-                                wait_in_class = False
-                            else:
-                                wait_in_class = False
-                                driver.close()
-                        else:
-                            is_connected_again = True
+                # converting total class joined seconds to minutes
+                total_class_time_min = total_class_time /60
+                print("Attended " + classJoinName + " Lecture for: " + str(total_class_time_min) + " minutes")
 
-                            while(is_connected_again):
-                                if(is_connected()):
-                                    is_connected_again = False
-                                    time.sleep(60)
-                                    total_class_time = total_class_time + 60
-                                else:
-                                    time.sleep(2)
-                                    driver.refresh()
-
-                    # converting total class joined seconds to minutes
-                    total_class_time_min = total_class_time /60
-                    print("Attended " + classJoinName + " Lecture for: " + str(total_class_time_min) + " minutes")
-
-                    driver.switch_to.window(driver.window_handles[0])
-
-                elif not IsLinkAvailable[0]:
-                    print("Class Joining Link for " + classJoinName + " Lecture Not Found !!!")
-                    classtojoin = False
+                driver.switch_to.window(driver.window_handles[0])
+            elif not IsLinkAvailable[0]:
+                print("Class Joining Link for " + classJoinName + " Lecture Not Found !!!")
+                classtojoin = False
+            
+            elif not IsTimeToJoinClass:
+                print("Time for " + classJoinName + " Lecture Gone !!!")
+                classtojoin = False
                 
     driver.quit()
