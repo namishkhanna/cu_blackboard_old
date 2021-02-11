@@ -350,7 +350,7 @@ if __name__ == '__main__':
                         time.sleep(2)
                         driver.refresh()
 
-                driver.switch_to.window(driver.window_handles[1])
+                driver.switch_to.window(driver.window_handles[len(driver.window_handles)-1])
 
                 # check if audio and video persmissions are given or not
                 if(not bb_permission_flag):
@@ -410,3 +410,4 @@ if __name__ == '__main__':
                 classtojoin = False
                 
     driver.quit()
+    
