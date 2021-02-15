@@ -330,17 +330,20 @@ if __name__ == '__main__':
                     time.sleep(2)
                     driver.refresh()
             
-            print("Attending " + classJoinName + " Lecture at: " + str(classJoinTime.time()))
-
-            # checking if class time is less than next class time
-            IsTimeToJoinClass = compareTime(classJoinTime)
+            print("Going to Attend " + classJoinName + " Lecture at: " + str(classJoinTime.time()))
 
             # checking if class joining link is available or not
             IsLinkAvailable = checkLinkAvailability(driver, classJoinName, nextClassJoinTime, classJoinTime)
 
+            # checking if class time is less than next class time
+            IsTimeToJoinClass = compareTime(classJoinTime)
+
             # check if class time is less than next class time and class joining link is available
             if IsTimeToJoinClass and IsLinkAvailable[0]:
                 classtojoin = False
+                currentTime = datetime.now()
+
+                print("Attending " + classJoinName + " Lecture at: " + str(currentTime.time()))
 
                 while(is_connected_link):
                     if(is_connected()):
@@ -377,37 +380,65 @@ if __name__ == '__main__':
                 while(wait_in_class):
                     currentTime = datetime.now()
                     
-                    # check if current time is greater than next class time and minimum time in class is greater than 50 minutes
-                    if(currentTime.time()>=nextClassJoinTime.time()):
-                        if(total_class_time<=3000):
-                            wait_in_class = False
-                        else:
-                            wait_in_class = False
-                            driver.close()
-                    else:
-                        is_connected_again = True
-
-                        while(is_connected_again):
-                            if(is_connected()):
-                                is_connected_again = False
-                                time.sleep(60)
-                                total_class_time = total_class_time + 60
+                    # check if last lecture or not
+                    # if not last lecture
+                    if(index!=(lectureNumber-1)):
+                        # check if current time is greater than next class time and minimum time in class is greater than 50 minutes
+                        if(currentTime.time()>=nextClassJoinTime.time()):
+                            if(total_class_time<=3000):
+                                wait_in_class = False
                             else:
-                                time.sleep(2)
-                                driver.refresh()
+                                wait_in_class = False
+                                driver.close()
+                        else:
+                            is_connected_again = True
+
+                            while(is_connected_again):
+                                if(is_connected()):
+                                    is_connected_again = False
+                                    time.sleep(60)
+                                    total_class_time = total_class_time + 60
+                                else:
+                                    time.sleep(2)
+                                    driver.refresh()
+
+                    # if last lecture
+                    else:
+                        # check if minimum time in class is greater than 50 minutes
+                        # if minimum time is less than 50 minutes
+                        if(total_class_time<=3000):
+                            is_connected_again = True
+
+                            while(is_connected_again):
+                                if(is_connected()):
+                                    is_connected_again = False
+                                    time.sleep(60)
+                                    total_class_time = total_class_time + 60
+                                else:
+                                    time.sleep(2)
+                                    driver.refresh()
+                        
+                        # if minimum time is greater than 50 minutes
+                        else:
+                            if(currentTime.time()>=nextClassJoinTime.time()):
+                                wait_in_class = False
+                                driver.close()
+                            time.sleep(30)
 
                 # converting total class joined seconds to minutes
                 total_class_time_min = total_class_time /60
                 print("Attended " + classJoinName + " Lecture for: " + str(total_class_time_min) + " minutes")
 
                 driver.switch_to.window(driver.window_handles[0])
+
+            # if time to attend lecture is gone and link is not available    
             elif not IsLinkAvailable[0]:
                 print("Class Joining Link for " + classJoinName + " Lecture Not Found !!!")
                 classtojoin = False
             
+            # if time to attend lecture is gone
             elif not IsTimeToJoinClass:
                 print("Time for " + classJoinName + " Lecture Gone !!!")
                 classtojoin = False
                 
     driver.quit()
-    
