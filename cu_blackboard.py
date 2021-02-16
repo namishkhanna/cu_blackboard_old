@@ -311,6 +311,7 @@ if __name__ == '__main__':
         classJoinTime = joinClassDetails(allData[index])
         classJoinName = (allData[index])[1]
         nextClassJoinTime = nextClassDetails(allData[index])
+        total_class_time = 0
 
         # joining class
         classtojoin = True
