@@ -1,0 +1,38 @@
+﻿TimingId,DayNo,CourseCode
+11:00 - 11:45 AM,Mon,
+11:00 - 11:45 AM,Tue,CSR-453:P:: Gp-C: By Sangeeta(E7531) at 1-05
+11:00 - 11:45 AM,Wed,
+11:00 - 11:45 AM,Thu,
+11:00 - 11:45 AM,Fri,
+1:45 - 2:30 PM,Mon,CST-456:L:: Gp-All: By Deepika (E2851) at 1-01-A
+1:45 - 2:30 PM,Tue,CSA-467:L:: Gp-All: By Nancy(E9140) at 1-05
+1:45 - 2:30 PM,Wed,CSA-461:L:: Gp-All: By Pritpal Singh(E8067) at 1-03
+1:45 - 2:30 PM,Thu,CSA-461:L:: Gp-All: By Pritpal Singh(E8067) at 1-03
+1:45 - 2:30 PM,Fri,CSA-461:L:: Gp-All: By Pritpal Singh(E8067) at 1-03
+2:45 - 3:30 PM,Mon,
+2:45 - 3:30 PM,Tue,CSP-457:P:: Gp-C: By Sangeeta(E7531) at 1-02
+2:45 - 3:30 PM,Wed,CSA-462:P:: Gp-C: By Pritpal Singh(E8067) at 1-04
+2:45 - 3:30 PM,Thu,CST-456:L:: Gp-All: By Deepika (E2851) at 1-01-A
+2:45 - 3:30 PM,Fri,CST-456:L:: Gp-All: By Deepika (E2851) at 1-01-A
+3:45 - 4:30 PM,Mon,
+3:45 - 4:30 PM,Tue,CSP-457:P:: Gp-C: By Sangeeta(E7531) at 1-02
+3:45 - 4:30 PM,Wed,CSA-462:P:: Gp-C: By Pritpal Singh(E8067) at 1-04
+3:45 - 4:30 PM,Thu,CSA-467:L:: Gp-All: By Nancy(E9140) at 1-05
+3:45 - 4:30 PM,Fri,CSA-467:L:: Gp-All: By Nancy(E9140) at 1-05
+
+CourseCode1,Title
+CSA-461,Computer Vision
+CSA-461,Computer Vision
+CSA-461,Computer Vision
+CSA-462,Computer Vision Lab
+CSA-462,Computer Vision Lab
+CSA-467,Block Chain Technology
+CSA-467,Block Chain Technology
+CSA-467,Block Chain Technology
+CSP-457,Real Time System Lab
+CSP-457,Real Time System Lab
+CSR-453, Project
+CST-456,Real Time System
+CST-456,Real Time System
+CST-456,Real Time System
+
