@@ -162,14 +162,19 @@ def loginBB(DRIVERLOADED,driver):
 
 
 
-# changing time from 12 to 24 hours
-def joinClassDetails(data, IsLastClass):
-    if IsLastClass:
-        time12H = datetime.strptime(f"{data[0]}", "%I:%M %p")
-        classAttendTime = time12H + timedelta(minutes=45)
-    else:
-        time12H = datetime.strptime(f"{data[0]}", "%I:%M %p")
-        classAttendTime = time12H - timedelta(minutes=15)
+# substracting 15 minutes from class joining time
+def joinClassDetails(data):
+    time12H = datetime.strptime(f"{data[0]}", "%I:%M %p")
+    classAttendTime = time12H - timedelta(minutes=15)
+
+    return classAttendTime
+
+
+
+# adding 45 minutes to class joining time
+def nextClassDetails(data):
+    time12H = datetime.strptime(f"{data[0]}", "%I:%M %p")
+    classAttendTime = time12H + timedelta(minutes=45)
 
     return classAttendTime
 
@@ -302,16 +307,10 @@ if __name__ == '__main__':
 
     # attending all classes one by one
     for index in range(lectureNumber-1,len(allData)):
-        classJoinTime = joinClassDetails(allData[index],IsLastClass)
+
+        classJoinTime = joinClassDetails(allData[index])
         classJoinName = (allData[index])[1]
-        total_class_time = 0
-        
-        # check if the class is last one
-        if(index+1<len(allData)):
-            nextClassJoinTime = joinClassDetails(allData[index+1],IsLastClass)
-        else:
-            IsLastClass=True
-            nextClassJoinTime = joinClassDetails(allData[index],IsLastClass)
+        nextClassJoinTime = nextClassDetails(allData[index])
 
         # joining class
         classtojoin = True
