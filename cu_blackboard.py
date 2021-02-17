@@ -382,7 +382,7 @@ if __name__ == '__main__':
                     
                     # check if last lecture or not
                     # if not last lecture
-                    if(index!=(lectureNumber-1)):
+                    if(index+1!=len(allData)):
                         # check if current time is greater than next class time and minimum time in class is greater than 50 minutes
                         if(currentTime.time()>=nextClassJoinTime.time()):
                             if(total_class_time<=3000):
