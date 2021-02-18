@@ -208,8 +208,11 @@ def checkLinkAvailability(driver, classJoinName, nextJoinClassTime, classJoinTim
             # finding which class to join
             while(is_connected_1):
                 if(is_connected()):
-                    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, f"//h4[@title='{classJoinName.upper()}']"))).click()
-                    is_connected_1 = False
+                    try:
+                        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, f"//h4[@title='{classJoinName.upper()}']"))).click()
+                        is_connected_1 = False
+                    except:
+                        print("Error in Finding Course Lecture")
                 else:
                     time.sleep(2)
                     driver.refresh()
@@ -307,7 +310,7 @@ if __name__ == '__main__':
 
     # attending all classes one by one
     for index in range(lectureNumber-1,len(allData)):
-
+    
         classJoinTime = joinClassDetails(allData[index])
         classJoinName = (allData[index])[1]
         nextClassJoinTime = nextClassDetails(allData[index])
@@ -331,6 +334,7 @@ if __name__ == '__main__':
                     driver.refresh()
             
             print("Going to Attend " + classJoinName + " Lecture at: " + str(classJoinTime.time()))
+            time.sleep(2)
 
             # checking if class joining link is available or not
             IsLinkAvailable = checkLinkAvailability(driver, classJoinName, nextClassJoinTime, classJoinTime)
