@@ -76,16 +76,7 @@ def getDetailsFromUIMS(driver):
             time.sleep(2)
             driver.refresh()
     
-    time.sleep(2)
-    download_folder_path = str(os.path.join(Path.home(), "Downloads"))
-    file_path = download_folder_path + "/"  + "rptStudentTimeTable.csv"
-
-    # copying the same file in current directory
-    with open(file_path,'r') as f:
-        with open("rptStudentTimeTable.csv",'w') as file_to_write:
-            file_to_write.writelines(f)
-    
-    time.sleep(2)
+    time.sleep(5)
 
 
 
@@ -142,6 +133,8 @@ def loginBB(DRIVERLOADED,driver):
         DRIVERLOADED = True
         chrome_options = Options()
         chrome_options.add_argument("--use-fake-ui-for-media-stream")
+        prefs = {"download.default_directory" : str(os.getcwd())}
+        chrome_options.add_experimental_option("prefs",prefs)
         driver = webdriver.Chrome(options=chrome_options)
         driver.maximize_window()
     
@@ -268,6 +261,8 @@ if __name__ == '__main__':
             DRIVERLOADED = True
             chrome_options = Options()
             chrome_options.add_argument("--use-fake-ui-for-media-stream")
+            prefs = {"download.default_directory" : str(os.getcwd())}
+            chrome_options.add_experimental_option("prefs",prefs)
             driver = webdriver.Chrome(options=chrome_options)
             driver.maximize_window()
 
