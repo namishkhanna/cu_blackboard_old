@@ -361,14 +361,15 @@ if __name__ == '__main__':
                     while(is_connected_driver):
                         if(is_connected()):
                             try:
-                                WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Audio is working.']"))).click()
+                                time.sleep(5)
+                                WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Audio is working.']"))).click()
                             except:
                                 print("Exception occured in Audio Testing.")
-                                WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Skip audio test']"))).click()
+                                WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Skip audio test']"))).click()
 
-                            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Video is working.']"))).click()
-                            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Later']"))).click()
-                            WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Close']"))).click()
+                            WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Yes. Video is working.']"))).click()
+                            WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Later']"))).click()
+                            WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Close']"))).click()
                             is_connected_driver = False
                         else:
                             time.sleep(2)
